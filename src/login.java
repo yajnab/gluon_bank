@@ -47,6 +47,11 @@ public class login extends javax.swing.JFrame implements ActionListener
         });
 
         canbtn.setText("Cancel");
+        canbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                canbtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("User ID");
 
@@ -102,19 +107,29 @@ public class login extends javax.swing.JFrame implements ActionListener
 	if(a.equals("admin")&&c.equals("admin"))	{
 	adminframe adminfrme = new adminframe();
 	adminfrme.setVisible(true);
+	login.dispose();	
 	}
 	else if(a.equals("client")&&c.equals("client"))	{
 	clientframe clientfrme = new clientframe();
 	clientfrme.setVisible(true);
 	login.setVisible(false);
+	login.dispose();
+	
 	}
 	if(a.equals("user")&&c.equals("user"))	{
 	userframe userfrme = new userframe();
 	userfrme.setVisible(true);
 	login.setVisible(false);
+	login.dispose();
 	}
         // TODO add your handling code here:
     }//GEN-LAST:event_loginbtnActionPerformed
+
+    private void canbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canbtnActionPerformed
+  
+    System.exit(0);        
+    // TODO add your handling code here:
+    }//GEN-LAST:event_canbtnActionPerformed
 
     /**
      * @param args the command line arguments
