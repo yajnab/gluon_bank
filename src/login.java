@@ -7,7 +7,10 @@
  *
  * @author yajnavalkya
  */
-public class login extends javax.swing.JFrame {
+import java.awt.event.*;
+public class login extends javax.swing.JFrame implements ActionListener
+ {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form login
@@ -25,6 +28,8 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         loginbtn = new javax.swing.JButton();
         canbtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -35,6 +40,11 @@ public class login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         loginbtn.setText("Login");
+        loginbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginbtnActionPerformed(evt);
+            }
+        });
 
         canbtn.setText("Cancel");
 
@@ -84,6 +94,28 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
+        String a = txtid.getText();
+	char[] b = passtxt.getPassword();
+	String c = new String(b);
+	login login = new login();
+	if(a.equals("admin")&&c.equals("admin"))	{
+	adminframe adminfrme = new adminframe();
+	adminfrme.setVisible(true);
+	}
+	else if(a.equals("client")&&c.equals("client"))	{
+	clientframe clientfrme = new clientframe();
+	clientfrme.setVisible(true);
+	login.setVisible(false);
+	}
+	if(a.equals("user")&&c.equals("user"))	{
+	userframe userfrme = new userframe();
+	userfrme.setVisible(true);
+	login.setVisible(false);
+	}
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -113,6 +145,7 @@ public class login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+	    @Override
             public void run() {
                 new login().setVisible(true);
             }
@@ -122,8 +155,19 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton canbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton loginbtn;
     private javax.swing.JPasswordField passtxt;
     private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+       
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }
