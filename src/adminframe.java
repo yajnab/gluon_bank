@@ -19,8 +19,6 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
      */
     public adminframe() {
         initComponents();
-	login login = new login();
-	
 	
     }
 
@@ -37,7 +35,7 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -55,7 +53,7 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 283, Short.MAX_VALUE)
         );
 
         pack();

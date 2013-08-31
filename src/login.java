@@ -107,20 +107,19 @@ public class login extends javax.swing.JFrame implements ActionListener
 	if(a.equals("admin")&&c.equals("admin"))	{
 	adminframe adminfrme = new adminframe();
 	adminfrme.setVisible(true);
-	login.dispose();	
+	dispose();	
 	}
 	else if(a.equals("client")&&c.equals("client"))	{
 	clientframe clientfrme = new clientframe();
 	clientfrme.setVisible(true);
-	login.setVisible(false);
-	login.dispose();
-	
+	setVisible(false);
+	dispose();	
 	}
 	if(a.equals("user")&&c.equals("user"))	{
 	userframe userfrme = new userframe();
 	userfrme.setVisible(true);
-	login.setVisible(false);
-	login.dispose();
+        setVisible(false);
+	dispose();
 	}
         // TODO add your handling code here:
     }//GEN-LAST:event_loginbtnActionPerformed
