@@ -165,6 +165,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_sex">
       <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_sexActionPerformed"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_sexKeyTyped"/>
       </Events>
     </Component>

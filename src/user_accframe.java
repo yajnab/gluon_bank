@@ -77,6 +77,11 @@ public class user_accframe extends javax.swing.JFrame {
             }
         });
 
+        txt_sex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_sexActionPerformed(evt);
+            }
+        });
         txt_sex.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_sexKeyTyped(evt);
@@ -204,6 +209,10 @@ public class user_accframe extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        dispose(); // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txt_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_sexActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_sexActionPerformed
 
   /**
      * @param args the command line arguments
