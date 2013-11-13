@@ -116,12 +116,14 @@ public class login extends javax.swing.JFrame implements ActionListener
 	//adminfrme.setVisible(true);
 	dispose();	
 	}
-	else if(a.equals("client")&&c.equals("client"))	{
+	/*This is commented due to temprary removal of Client class
+         * Will be readded soon if time is approved
+         else if(a.equals("client")&&c.equals("client"))	{
 	clientframe clientfrme = new clientframe();
 	clientfrme.setVisible(true);
 	//setVisible(false);
 	dispose();	
-	}
+	}*/
 	if(a.equals("user")&&c.equals("user"))	{
 	userframe userfrme = new userframe();
 	userfrme.setVisible(true);
