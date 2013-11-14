@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this template, choose Tools | Templates
@@ -64,7 +65,7 @@ public class editfrm extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         pf1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tf4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,24 +196,20 @@ public boolean chk(int a) throws SQLException {
     catch (SQLException e){}
     if (rs.next())
         count = rs.getInt(1);
-    
-    try{
-        rsa = stmt.executeQuery("Select * from bank_db where no="+a+";");
-    }
+     
+    try{rsa = stmt.executeQuery("Select * from bank_db where no="+a+";");}
     catch(SQLException e){}
     if(rsa.next()){
         tf3.setText(rsa.getString("dname"));
         tf4.setText(rsa.getString("dadrs"));
         jTextField2.setText(rsa.getString("dphno"));
         pf1.setText(rsa.getString("dpass"));
-        no=a;
-    }
+        no=a;}
+    rsa.close();stmt.close();
+    if (count == 0)return false;
+    else return true;
     
-    if (count == 0)
-        return false;
-    else{
-        return true;
-    }
+              
 }
 public void submit() throws SQLException
 {
@@ -222,10 +219,12 @@ public void submit() throws SQLException
     String dadrs = tf4.getText();
     int dphno = Integer.parseInt(jTextField2.getText());
     String dpass = pf1.getText();
-    try{
-    rs = stmt.executeQuery("update bank_db set dname='"+dname+"', dadrs='"+dadrs+"', dphno='"+dphno+"', dpass='"+dpass+" where no="+no+";");
-    }
-    catch(SQLException e){}
+   try{
+   stmt.executeUpdate("UPDATE bank_db SET dname='"+dname+"', dadrs='"+dadrs+"', dphno="+dphno+", dpass='"+dpass+"' where no="+no+";");
+   JOptionPane.showMessageDialog(null,"Record Sucessfully Updated");
+   
+   }
+   catch(SQLException e){System.out.println("Mistake"+e);}
     
 }
 
