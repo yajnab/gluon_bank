@@ -21,6 +21,8 @@ public class editfrm extends javax.swing.JFrame {
      * Creates new form editfrm
      */
     private Connection con;
+    int count = 0;
+    int no;
     public editfrm() {
 	initComponents();
 	initDatabase();
@@ -29,6 +31,7 @@ public class editfrm extends javax.swing.JFrame {
         tf4.setEnabled(false);
         jTextField2.setEnabled(false);
         jButton3.setEnabled(false);
+        
     }
   public final void initDatabase() {
       try {
@@ -50,7 +53,6 @@ public class editfrm extends javax.swing.JFrame {
         tf1 = new javax.swing.JTextField();
         tf3 = new javax.swing.JTextField();
         tf4 = new javax.swing.JTextField();
-        pf1 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -60,18 +62,13 @@ public class editfrm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        pf1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tf4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf4ActionPerformed(evt);
-            }
-        });
-
-        pf1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pf1ActionPerformed(evt);
             }
         });
 
@@ -126,11 +123,11 @@ public class editfrm extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pf1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                     .addComponent(tf4)
                     .addComponent(tf1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tf3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2))
+                    .addComponent(jTextField2)
+                    .addComponent(pf1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1))
             .addGroup(layout.createSequentialGroup()
@@ -141,7 +138,7 @@ public class editfrm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(164, 164, 164)
                         .addComponent(jButton3)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 181, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,8 +152,8 @@ public class editfrm extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,25 +186,65 @@ public class editfrm extends javax.swing.JFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 public boolean chk(int a) throws SQLException {
-    int count = 0;
     Statement stmt = con.createStatement();
-    ResultSet rset=null;
+    ResultSet rs=null;
+    ResultSet rsa=null;
     try{
-    rset = stmt.executeQuery("Select no from bank_db where no="+a+";");
+    rs = stmt.executeQuery("Select no from bank_db where no="+a+";");
     }
     catch (SQLException e){}
-    if (rset.next())
-        count = rset.getInt(1);
+    if (rs.next())
+        count = rs.getInt(1);
+    
+    try{
+        rsa = stmt.executeQuery("Select * from bank_db where no="+a+";");
+    }
+    catch(SQLException e){}
+    if(rsa.next()){
+        tf3.setText(rsa.getString("dname"));
+        tf4.setText(rsa.getString("dadrs"));
+        jTextField2.setText(rsa.getString("dphno"));
+        pf1.setText(rsa.getString("dpass"));
+        no=a;
+    }
+    
     if (count == 0)
         return false;
-    else
+    else{
         return true;
+    }
 }
-public boolean chk2(String b){return true;}
+public void submit() throws SQLException
+{
+    Statement stmt = con.createStatement();
+    ResultSet rs=null;
+    String dname = tf3.getText();
+    String dadrs = tf4.getText();
+    int dphno = Integer.parseInt(jTextField2.getText());
+    String dpass = pf1.getText();
+    try{
+    rs = stmt.executeQuery("update bank_db set dname='"+dname+"', dadrs='"+dadrs+"', dphno='"+dphno+"', dpass='"+dpass+" where no="+no+";");
+    }
+    catch(SQLException e){}
+    
+}
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 int username = Integer.parseInt(tf1.getText());
         try {
-            if(chk(username)){  jButton3.setEnabled(true);}
+            if(chk(username)){  
+                jButton3.setEnabled(true);
+                count=0;
+              }
+            else
+            {
+                jButton3.setEnabled(false);
+                tf3.setText("");
+                tf4.setText("");
+                jTextField2.setText("");
+                pf1.setText("");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(editfrm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -217,30 +254,27 @@ int username = Integer.parseInt(tf1.getText());
         // TODO add your handling code here:
     }//GEN-LAST:event_tf4ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void pf1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pf1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pf1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    String username = tf1.getText();
-        //try {
-            if(chk2(username)){
+    String username = tf1.getText();    
             pf1.setEnabled(true);
             tf3.setEnabled(true);
             tf4.setEnabled(true);
-            jTextField2.setEnabled(true);}
-        //} catch (SQLException ex) {
-          //  Logger.getLogger(editfrm.class.getName()).log(Level.SEVERE, null, ex);
-        //}
+            jTextField2.setEnabled(true);
+       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            submit();
+            // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(editfrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,7 +321,7 @@ int username = Integer.parseInt(tf1.getText());
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JPasswordField pf1;
+    private javax.swing.JTextField pf1;
     private javax.swing.JTextField tf1;
     private javax.swing.JTextField tf3;
     private javax.swing.JTextField tf4;
