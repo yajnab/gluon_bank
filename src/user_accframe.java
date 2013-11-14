@@ -2,7 +2,14 @@
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -21,12 +28,21 @@ public class user_accframe extends javax.swing.JFrame {
     /**
      * Creates new form user_accframe
      */
+    Connection con;
+    String did;
     public user_accframe() {
 	initComponents();
-	
-	
+	initDatabase();
+        jButton1.setEnabled(false);
     }
-
+   public final void initDatabase() {
+      try {
+         Class.forName("com.mysql.jdbc.Driver");
+         con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/yajnab?zeroDateTimeBehavior=convertToNull","root","11");           
+    } 
+    catch (ClassNotFoundException | SQLException e) {
+    }
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,13 +55,13 @@ public class user_accframe extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        cb1 = new javax.swing.JComboBox();
+        tf1 = new javax.swing.JTextField();
+        tf2 = new javax.swing.JTextField();
         txt_sex = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField(13);
+        tf3 = new javax.swing.JTextField();
+        tf4 = new javax.swing.JTextField(13);
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -53,6 +69,7 @@ public class user_accframe extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         pf1 = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
+        tfid = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,11 +79,11 @@ public class user_accframe extends javax.swing.JFrame {
 
         jLabel3.setText("Address");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Master.", "Mr.", "Mrs.", "Dr." }));
+        cb1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Master.", "Mr.", "Mrs.", "Dr." }));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tf1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tf1ActionPerformed(evt);
             }
         });
 
@@ -101,7 +118,12 @@ public class user_accframe extends javax.swing.JFrame {
 
         jLabel4.setText("ID");
 
-        jButton4.setText("Unlock");
+        jButton4.setText("Check");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Password");
 
@@ -122,18 +144,20 @@ public class user_accframe extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfid, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tf2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
-                                .addComponent(jLabel5))
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tf3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
@@ -147,34 +171,40 @@ public class user_accframe extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jButton4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tfid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(tf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(tf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,7 +213,7 @@ public class user_accframe extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTextField5.addKeyListener(new KeyAdapter() {
+        tf4.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!((c >= '0') && (c <= '9') ||
@@ -197,10 +227,26 @@ public class user_accframe extends javax.swing.JFrame {
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+   public boolean chk(String a) throws SQLException {
+    Statement stmt = con.createStatement();
+    ResultSet rs=null;
+    String count =null;
+    try{
+    rs = stmt.executeQuery("Select didd from bank_db where didd='"+a+"';");
+    if(rs.next()){
+    return false;
+    }
+    else{
+        }
+    }
+    catch (SQLException e){System.out.println(e);}
+    rs.close();
+    stmt.close();
+      return true;
+   }
+    private void tf1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tf1ActionPerformed
 
     @SuppressWarnings("empty-statement")
     private void txt_sexKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_sexKeyTyped
@@ -216,11 +262,44 @@ public class user_accframe extends javax.swing.JFrame {
 	   evt.consume();
 	   JOptionPane.showMessageDialog(null, "Wrong Sex input.M or F is only supported.");   
        }
-       
-       
-       // TODO add your handling code here:
     }//GEN-LAST:event_txt_sexKeyTyped
-
+public void submit() throws SQLException
+{
+    Statement stmt = con.createStatement();
+    ResultSet rs=null;
+    ResultSet rsa=null;
+    String dname = cb1.getSelectedItem()+ tf3.getText();
+    String dage = tf2.getText();
+    String dsex = txt_sex.getText();
+    int dphno = Integer.parseInt(tf4.getText());
+    char[] pass = pf1.getPassword();
+    String dpass = new String(pass);
+    String dadrs = tf3.getText();
+   try
+   {
+       rs = stmt.executeQuery("Select max(no) from bank_db;");
+        if(rs.next())
+       {
+       String m = rs.getString(1);
+       System.out.println(m);
+       int l = Integer.parseInt(m)+1;
+           try {
+              stmt.executeUpdate("Insert into bank_db values("+(l+1)+",'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");              
+           }
+           catch(SQLException e){System.out.println("one"+e);}
+       }
+       else
+       {
+           try {
+               stmt.executeUpdate("Insert into bank_db values(1,'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"'");
+               
+           }
+           catch(SQLException e){System.out.println("Two"+e);}
+       }
+   }
+  catch (SQLException e){System.out.println("Mistakerghrh"+e);}
+    
+}
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        dispose(); // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -228,10 +307,20 @@ public class user_accframe extends javax.swing.JFrame {
     private void txt_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_sexActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_sexActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            submit();
+        } catch (SQLException ex) {
+            Logger.getLogger(user_accframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String username = (tf1.getText());
+        did=username;
+        try {if(chk(username)){jButton1.setEnabled(true);did=username;}}  
+        catch (SQLException e){System.out.println(e);}
+    }//GEN-LAST:event_jButton4ActionPerformed
 
   /**
      * @param args the command line arguments
@@ -269,10 +358,10 @@ public class user_accframe extends javax.swing.JFrame {
 	});
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cb1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -280,11 +369,12 @@ public class user_accframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JPasswordField pf1;
+    private javax.swing.JTextField tf1;
+    private javax.swing.JTextField tf2;
+    private javax.swing.JTextField tf3;
+    private javax.swing.JTextField tf4;
+    private javax.swing.JTextField tfid;
     private javax.swing.JTextField txt_sex;
     // End of variables declaration//GEN-END:variables
 }
