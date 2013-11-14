@@ -33,8 +33,7 @@ public class editfrm extends javax.swing.JFrame {
   public final void initDatabase() {
       try {
          Class.forName("com.mysql.jdbc.Driver");
-         con = DriverManager.getConnection(
-                      "jdbc:mysql://localhost:3306/3moronsdb","root","");           
+         con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/yajnab?zeroDateTimeBehavior=convertToNull","root","11");           
     } 
     catch (ClassNotFoundException | SQLException e) {
     }
@@ -94,6 +93,11 @@ public class editfrm extends javax.swing.JFrame {
         jLabel5.setText("Phno");
 
         jButton2.setText("Submit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,12 +188,14 @@ public class editfrm extends javax.swing.JFrame {
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-public boolean chk(String a) throws SQLException {
+public boolean chk(int a) throws SQLException {
     int count = 0;
     Statement stmt = con.createStatement();
-    ResultSet rset = stmt
-            .executeQuery("Select id from bank_db where id='"
-                    + a + "'");
+    ResultSet rset=null;
+    try{
+    rset = stmt.executeQuery("Select no from bank_db where no="+a+";");
+    }
+    catch (SQLException e){}
     if (rset.next())
         count = rset.getInt(1);
     if (count == 0)
@@ -197,9 +203,9 @@ public boolean chk(String a) throws SQLException {
     else
         return true;
 }
-
+public boolean chk2(String b){return true;}
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-String username = tf1.getText();
+int username = Integer.parseInt(tf1.getText());
         try {
             if(chk(username)){  jButton3.setEnabled(true);}
         } catch (SQLException ex) {
@@ -221,16 +227,20 @@ String username = tf1.getText();
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     String username = tf1.getText();
-        try {
-            if(chk(username)){
+        //try {
+            if(chk2(username)){
             pf1.setEnabled(true);
             tf3.setEnabled(true);
             tf4.setEnabled(true);
             jTextField2.setEnabled(true);}
-        } catch (SQLException ex) {
-            Logger.getLogger(editfrm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //} catch (SQLException ex) {
+          //  Logger.getLogger(editfrm.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,5 +1,6 @@
 
 import java.awt.Frame;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.*;
 import javax.swing.JOptionPane;
@@ -85,6 +86,11 @@ public class user_accframe extends javax.swing.JFrame {
         jLabel6.setText("Ph. No");
 
         jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -222,6 +228,10 @@ public class user_accframe extends javax.swing.JFrame {
     private void txt_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_sexActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_sexActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
   /**
      * @param args the command line arguments
