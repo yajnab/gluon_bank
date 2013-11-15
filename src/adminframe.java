@@ -60,6 +60,11 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
         });
 
         jButton4.setText("Create Savings Account");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Exit");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +116,7 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
                     .addComponent(jButton3))
                 .addGap(42, 42, 42)
                 .addComponent(jButton6)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,6 +135,10 @@ System.exit(0);        // TODO add your handling code here:
     editfrm editform = new editfrm();
     editform.setVisible(true);;// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

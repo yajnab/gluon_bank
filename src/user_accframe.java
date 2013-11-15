@@ -29,11 +29,15 @@ public class user_accframe extends javax.swing.JFrame {
      * Creates new form user_accframe
      */
     Connection con;
-    String did;
     public user_accframe() {
 	initComponents();
 	initDatabase();
         jButton1.setEnabled(false);
+         tf1.setEnabled(false);
+         tf2.setEnabled(false);
+         tf3.setEnabled(false);
+         tf4.setEnabled(false);
+         txt_sex.setEnabled(false);
     }
    public final void initDatabase() {
       try {
@@ -70,6 +74,8 @@ public class user_accframe extends javax.swing.JFrame {
         pf1 = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         tfid = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        pf2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,6 +133,8 @@ public class user_accframe extends javax.swing.JFrame {
 
         jLabel7.setText("Password");
 
+        jLabel8.setText("Re-enter Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,57 +144,61 @@ public class user_accframe extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfid, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tf2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tf3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel8))
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tf2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tf3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(tfid, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton4))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(pf2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                                                .addComponent(pf1, javax.swing.GroupLayout.Alignment.LEADING))))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(jButton1)
                         .addGap(154, 154, 154)
                         .addComponent(jButton2)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jButton4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel7)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton4)
+                    .addComponent(tfid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(pf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(pf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,20 +242,19 @@ public class user_accframe extends javax.swing.JFrame {
    public boolean chk(String a) throws SQLException {
     Statement stmt = con.createStatement();
     ResultSet rs=null;
+    int c=0;
     String count =null;
-    try{
-    rs = stmt.executeQuery("Select didd from bank_db where didd='"+a+"';");
-    if(rs.next()){
-    return false;
+    try{rs = stmt.executeQuery("Select count(didd) from bank_db where didd='"+a+"';");}
+    catch (SQLException e){/*System.out.println(e);*/}
+    if(rs.next()){c=rs.getInt(1);
+    //System.out.println(c);
     }
-    else{
-        }
-    }
-    catch (SQLException e){System.out.println(e);}
     rs.close();
     stmt.close();
-      return true;
-   }
+    if(c==0){return true;}
+    else{return false;}
+    
+  }
     private void tf1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf1ActionPerformed
@@ -268,37 +279,60 @@ public void submit() throws SQLException
     Statement stmt = con.createStatement();
     ResultSet rs=null;
     ResultSet rsa=null;
-    String dname = cb1.getSelectedItem()+ tf3.getText();
+    String dname = cb1.getSelectedItem()+" "+ tf1.getText();
     String dage = tf2.getText();
     String dsex = txt_sex.getText();
-    int dphno = Integer.parseInt(tf4.getText());
+    long dphno = Long.parseLong(tf4.getText().trim());
     char[] pass = pf1.getPassword();
     String dpass = new String(pass);
+    char[] passc = pf2.getPassword();
+    String dpassc = new String(passc);
     String dadrs = tf3.getText();
-   try
-   {
-       rs = stmt.executeQuery("Select max(no) from bank_db;");
-        if(rs.next())
+    String did= tfid.getText();
+    int l=0;
+   if(dpass.length()>6){
+    if(dpassc.equals(dpass)){
+       try
        {
-       String m = rs.getString(1);
-       System.out.println(m);
-       int l = Integer.parseInt(m)+1;
-           try {
-              stmt.executeUpdate("Insert into bank_db values("+(l+1)+",'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");              
-           }
-           catch(SQLException e){System.out.println("one"+e);}
+       rs = stmt.executeQuery("Select max(no) from bank_db;");
+        if(rs.wasNull())
+       {
+           l=1;
+           //System.out.println(l);
        }
        else
        {
-           try {
-               stmt.executeUpdate("Insert into bank_db values(1,'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"'");
-               
-           }
-           catch(SQLException e){System.out.println("Two"+e);}
+           String m = rs.getString(1);
+           l = Integer.parseInt(m)+1;
+           //System.out.println(m);
        }
+       
+       
+       rs.close();
+           try {
+              stmt.executeUpdate("Insert into bank_db values("+l+",'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");              
+           }
+           catch(SQLException e){/*System.out.println("one"+e);*/}
+       }
+         
+  catch (SQLException e){
+      //System.out.println(/*"Mistake"+e*/);
+      rs.close();
+           try {
+              stmt.executeUpdate("Insert into bank_db values(1,'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");               
+           }
+           catch(SQLException ex){/*System.out.println("Two"+ex);*/}
+  }
    }
-  catch (SQLException e){System.out.println("Mistakerghrh"+e);}
-    
+   else
+   {
+       JOptionPane.showMessageDialog(null, "Please Check the Password in the Both fields");
+   }
+}
+   else
+   {
+       JOptionPane.showMessageDialog(null,"Password should be more than 6 characters");
+   }
 }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        dispose(); // TODO add your handling code here:
@@ -316,10 +350,24 @@ public void submit() throws SQLException
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String username = (tf1.getText());
-        did=username;
-        try {if(chk(username)){jButton1.setEnabled(true);did=username;}}  
-        catch (SQLException e){System.out.println(e);}
+        String username = (tfid.getText());
+        try {
+            if(chk(username)){
+                jButton1.setEnabled(true);
+                tfid.setEnabled(false);
+                tf1.setEnabled(true);
+                tf2.setEnabled(true);
+                tf3.setEnabled(true);
+                tf4.setEnabled(true);
+                txt_sex.setEnabled(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Username is used, Select another username");
+            }
+        }  
+        catch (SQLException e){
+            //System.out.println(e);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
   /**
@@ -369,7 +417,9 @@ public void submit() throws SQLException
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField pf1;
+    private javax.swing.JPasswordField pf2;
     private javax.swing.JTextField tf1;
     private javax.swing.JTextField tf2;
     private javax.swing.JTextField tf3;
