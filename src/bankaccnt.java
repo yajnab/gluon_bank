@@ -134,7 +134,8 @@ public void newc()throws SQLException {
     ResultSet rs=null;
     int c=0;
     String count =null;
-    try{stmt.executeUpdate(""/*New table SQL Query"*/);}
+    String user = jTextField1.getText();
+    try{stmt.executeUpdate("Create table "+user+"(no int(5), depo float(10,2), wid float(10,2), type varchar(50));");}
     catch (SQLException e){System.out.println(e);}
     rs.close();
     stmt.close();

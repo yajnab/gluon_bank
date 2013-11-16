@@ -258,7 +258,17 @@ public class user_accframe extends javax.swing.JFrame {
     private void tf1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf1ActionPerformed
-
+public void newc()throws SQLException {
+    Statement stmta = con.createStatement();
+    ResultSet rs=null;
+    int c=0;
+    String count =null;
+    String user = tfid.getText();
+    try{stmta.executeUpdate("Create table "+user+"(no int(5), depo float(10,2), wid float(10,2), type varchar(50));");}
+    catch (SQLException e){/*System.out.println(e);*/}
+    //rs.close();
+    stmta.close();
+   }
     @SuppressWarnings("empty-statement")
     private void txt_sexKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_sexKeyTyped
        char c=evt.getKeyChar();
@@ -295,31 +305,26 @@ public void submit() throws SQLException
        try
        {
        rs = stmt.executeQuery("Select max(no) from bank_db;");
-        if(rs.wasNull())
-       {
-           l=1;
-           //System.out.println(l);
-       }
-       else
-       {
+         if(rs.next())    {
            String m = rs.getString(1);
            l = Integer.parseInt(m)+1;
-           //System.out.println(m);
-       }
+           System.out.println(m);
        
-       
+         }
        rs.close();
            try {
-              stmt.executeUpdate("Insert into bank_db values("+l+",'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");              
+              stmt.executeUpdate("Insert into bank_db values("+l+",'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");
+              newc();
            }
            catch(SQLException e){/*System.out.println("one"+e);*/}
        }
          
   catch (SQLException e){
-      //System.out.println(/*"Mistake"+e*/);
+      //System.out.println("Mistake"+e);
       rs.close();
            try {
               stmt.executeUpdate("Insert into bank_db values(1,'"+dname+"','"+dadrs+"',"+dphno+",'"+dpass+"','"+dage+"','"+dsex+"','"+did+"');");               
+              newc();
            }
            catch(SQLException ex){/*System.out.println("Two"+ex);*/}
   }
