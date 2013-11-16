@@ -1,3 +1,10 @@
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -122,6 +129,11 @@ public class userframe extends javax.swing.JFrame {
         );
 
         jButton1.setText("Process");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Cheque Number");
 
@@ -182,7 +194,21 @@ public class userframe extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public void readfw()throws IOException
+{
+    try (BufferedReader br = new BufferedReader(new FileReader("./user.yajnab")))
+		{
+ 
+			String sCurrentLine;
+ 
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+}
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -217,6 +243,14 @@ if(jRadioButton2.isSelected()==false) //This makes the deposit related radio but
     jTextField2.setEnabled(false);
 }       // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton4MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            readfw();  // TODO add your handling code here:
+        } catch (IOException ex) {
+            Logger.getLogger(userframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -8,6 +8,11 @@
  * @author yajnavalkya
  */
 import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class login extends javax.swing.JFrame implements ActionListener
  {
     private static final long serialVersionUID = 1L;
@@ -105,7 +110,18 @@ public class login extends javax.swing.JFrame implements ActionListener
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public void filefw()throws IOException
+{
+    String a = txtid.getText(); 
+    try {
+       FileWriter fw = new FileWriter("./user.yajnab");
+       try (PrintWriter pw = new PrintWriter(fw)) {
+           pw.println(a);
+           }
+          } catch (IOException e1) {
+         e1.printStackTrace();
+    }
+}
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
         String a = txtid.getText();
 	char[] b = passtxt.getPassword();
@@ -114,7 +130,12 @@ public class login extends javax.swing.JFrame implements ActionListener
 	if(a.equals("admin")&&c.equals("admin"))	{
 	adminframe adminfrme = new adminframe();
 	adminfrme.setVisible(true);
-	dispose();	
+	dispose();
+            try {
+                filefw();
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 	/*This is commented due to temprary removal of Client class
          * Will be readded soon if time is approved
@@ -127,7 +148,11 @@ public class login extends javax.swing.JFrame implements ActionListener
 	if(a.equals("user")&&c.equals("user"))	{
 	userframe userfrme = new userframe();
 	userfrme.setVisible(true);
-        //setVisible(false);
+        try {
+                filefw();
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	dispose();
 	}
         // TODO add your handling code here:
