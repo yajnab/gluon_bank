@@ -11,8 +11,16 @@ import java.awt.event.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
 public class login extends javax.swing.JFrame implements ActionListener
  {
     private static final long serialVersionUID = 1L;
@@ -20,8 +28,11 @@ public class login extends javax.swing.JFrame implements ActionListener
     /**
      * Creates new form login
      */
-    public login() {
+    Connection con;
+    int count=0;
+    public login() throws SQLException {
         initComponents();
+        initDatabase();
     }
 
     /**
@@ -110,7 +121,34 @@ public class login extends javax.swing.JFrame implements ActionListener
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void filefw()throws IOException
+public final void initDatabase()throws SQLException {
+      try {
+         Class.forName("com.mysql.jdbc.Driver");
+         con =(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/yajnab?zeroDateTimeBehavior=convertToNull","root","11");           
+    } 
+    catch (ClassNotFoundException | SQLException e) {
+    }
+  }
+public boolean namechk(String a, String b)throws SQLException {
+    Statement stmt = con.createStatement();
+    ResultSet rs=null;
+    String c=null;
+    String count;
+    try{rs = stmt.executeQuery("Select dpass from bank_db where didd='"+a+"';");}
+    catch (SQLException e){
+    System.out.println(e);
+    return false;    
+    }
+    if(rs.next()){
+        c=rs.getString("dpass");   
+        System.out.println(c);
+    }
+    if(b.equals(c)){
+        return true;
+    }
+    else{return false;}
+}
+    public void filefw()throws IOException
 {
     String a = txtid.getText(); 
     try {
@@ -126,8 +164,27 @@ public void filefw()throws IOException
         String a = txtid.getText();
 	char[] b = passtxt.getPassword();
 	String c = new String(b);
-	login login = new login();
-	if(a.equals("admin")&&c.equals("admin"))	{
+        
+        try {
+            login login = new login();
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            if(namechk(a,c)){
+            userframe userfrme = new userframe();
+	    userfrme.setVisible(true);
+        try {
+                filefw();
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+	dispose();                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(a.equals("admin")&&c.equals("admin"))	{
 	adminframe adminfrme = new adminframe();
 	adminfrme.setVisible(true);
 	dispose();
@@ -137,25 +194,20 @@ public void filefw()throws IOException
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             }
 	}
-	/*This is commented due to temprary removal of Client class
-         * Will be readded soon if time is approved
-         else if(a.equals("client")&&c.equals("client"))	{
-	clientframe clientfrme = new clientframe();
-	clientfrme.setVisible(true);
-	//setVisible(false);
-	dispose();	
-	}*/
-	if(a.equals("user")&&c.equals("user"))	{
-	userframe userfrme = new userframe();
-	userfrme.setVisible(true);
         try {
-                filefw();
-            } catch (IOException ex) {
-                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            if(namechk(a,c)==false)
+            {   
+                JOptionPane.showMessageDialog(null, "Wrong ID or Password, Please Chek and try again");
+                count++;
+                if(count>=3){
+                  System.exit(0);
+                 }
             }
-	dispose();
-	}
-        // TODO add your handling code here:
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        
     }//GEN-LAST:event_loginbtnActionPerformed
 
     private void canbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canbtnActionPerformed
@@ -195,7 +247,11 @@ public void filefw()throws IOException
         java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
             public void run() {
-                new login().setVisible(true);
+                try {
+                    new login().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

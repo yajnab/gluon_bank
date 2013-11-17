@@ -357,7 +357,7 @@ public void submit() throws SQLException
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String username = (tfid.getText());
         try {
-            if(chk(username)){
+            if(chk(username)||username.equals("admin")){
                 jButton1.setEnabled(true);
                 tfid.setEnabled(false);
                 tf1.setEnabled(true);
