@@ -24,10 +24,10 @@ public class userframe extends javax.swing.JFrame {
     /**
      * Creates new form userframe
      */
-    String usern;
     Connection con;
-    public userframe() {
+    public userframe()throws SQLException {
         initComponents();
+        initDatabase();
         jRadioButton3.setEnabled(false);
         jRadioButton4.setEnabled(false);
         jTextField2.setEnabled(false);
@@ -47,10 +47,15 @@ public final void initDatabase()throws SQLException {
     catch (ClassNotFoundException | SQLException e) {
     }
   }
+public void readfw()throws IOException
+{
+    
+}
     public void depos()throws SQLException, IOException {
         float money = Float.parseFloat(jTextField1.getText());
         int l=0;
         long chqno;
+        String userna=null;
         String type=null;
         Statement stmt = con.createStatement();
     ResultSet rs=null;
@@ -64,29 +69,41 @@ public final void initDatabase()throws SQLException {
     {
         type="Deposited by Cash";
     }
+    try (BufferedReader br = new BufferedReader(new FileReader("./user.yajnab")))
+		{
+ 
+			String sCurrentLine;
+ 
+			while ((sCurrentLine = br.readLine()) != null) {
+			userna=sCurrentLine;	
+                        //System.out.println(sCurrentLine);
+			}
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
         try
          {
-          rs = stmt.executeQuery("Select max(no) from bank_db;");
+          rs = stmt.executeQuery("Select max(no) from "+userna+";");
           if(rs.next())    {
-           String m = rs.getString(1);
-           l = Integer.parseInt(m)+1;
-           System.out.println(m);
-           readfw();
+           int m = rs.getInt(1);
+           l = m+1;
+           System.out.println(m);          
        
          }
            rs.close();
            try {
-              stmt.executeUpdate("Insert into "+usern+"values("+l+","+money+", NULL,'"+type+"');");
+              stmt.executeUpdate("Insert into "+userna+" values("+l+","+money+", NULL,'"+type+"');");
            }
-           catch(SQLException e){/*System.out.println("one"+e);*/}
+           catch(SQLException e){System.out.println("one"+e);}
        }
          
   catch (SQLException e){
       //System.out.println("Mistake"+e);
       rs.close();
-           try { stmt.executeUpdate("Insert into "+usern+"values(1,"+money+", NULL,'"+type+"');");}
+           try { stmt.executeUpdate("Insert into "+userna+" values(1,"+money+", NULL,'"+type+"');");}
               
-           catch(SQLException ex){/*System.out.println("Two"+ex);*/}
+           catch(SQLException ex){System.out.println("Two"+ex);}
     }
     }
 
@@ -98,6 +115,7 @@ public final void initDatabase()throws SQLException {
         Statement stmt = con.createStatement();
     ResultSet rs=null;
     ResultSet rsa=null;
+    String usern=null;
     if(jRadioButton3.isSelected())
     {
         chqno = Long.parseLong(jTextField2.getText());
@@ -107,29 +125,42 @@ public final void initDatabase()throws SQLException {
     {
         type="Withdrawn by Cash";
     }
+    try (BufferedReader br = new BufferedReader(new FileReader("./user.yajnab")))
+		{
+ 
+			String sCurrentLine;
+ 
+			while ((sCurrentLine = br.readLine()) != null) {
+			usern=sCurrentLine;	
+                        //System.out.println(sCurrentLine);
+			}
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         try
          {
-          rs = stmt.executeQuery("Select max(no) from bank_db;");
+          rs = stmt.executeQuery("Select max(no) from "+usern+";");
           if(rs.next())    {
-           String m = rs.getString(1);
-           l = Integer.parseInt(m)+1;
+           int m = rs.getInt(1);
+           l = (m)+1;
            System.out.println(m);
-           readfw();
+           System.out.println(usern);
        
          }
            rs.close();
            try {
-              stmt.executeUpdate("Insert into "+usern+"values("+l+",NUll ,"+money+",'"+type+"');");
+              stmt.executeUpdate("Insert into "+usern+" values("+l+",NUll ,"+money+",'"+type+"');");
            }
-           catch(SQLException e){/*System.out.println("one"+e);*/}
+           catch(SQLException e){System.out.println("one"+e);}
        }
          
   catch (SQLException e){
       //System.out.println("Mistake"+e);
       rs.close();
-           try { stmt.executeUpdate("Insert into "+usern+"values(1, NULL,"+money+", '"+type+"');");}
+           try { stmt.executeUpdate("Insert into "+usern+" values(1, NULL,"+money+", '"+type+"');");}
               
-           catch(SQLException ex){/*System.out.println("Two"+ex);*/}
+           catch(SQLException ex){System.out.println("Two"+ex);}
     }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -149,6 +180,7 @@ public final void initDatabase()throws SQLException {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -244,19 +276,16 @@ public final void initDatabase()throws SQLException {
             }
         });
 
+        jButton3.setText("List All Transactions");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(jButton1)
-                        .addGap(47, 47, 47)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
@@ -267,7 +296,13 @@ public final void initDatabase()throws SQLException {
                                 .addGap(93, 93, 93)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(47, 47, 47)
+                        .addComponent(jButton1)
+                        .addGap(69, 69, 69)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -288,28 +323,14 @@ public final void initDatabase()throws SQLException {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void readfw()throws IOException
-{
-    try (BufferedReader br = new BufferedReader(new FileReader("./user.yajnab")))
-		{
- 
-			String sCurrentLine;
- 
-			while ((sCurrentLine = br.readLine()) != null) {
-			usern=sCurrentLine;	
-                            //System.out.println(sCurrentLine);
-			}
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-}
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -324,6 +345,10 @@ if((jRadioButton2.isSelected())||jRadioButton1.isSelected()){
     }//GEN-LAST:event_jRadioButton2MouseClicked
 
     private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+if((jRadioButton2.isSelected())||jRadioButton1.isSelected()){
+    jRadioButton3.setEnabled(true);
+    jRadioButton4.setEnabled(true);
+   }
 
     }//GEN-LAST:event_jRadioButton1MouseClicked
 
@@ -342,11 +367,6 @@ if((jRadioButton2.isSelected())||jRadioButton1.isSelected()){
     }//GEN-LAST:event_jRadioButton4MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            readfw();  // TODO add your handling code here:
-        } catch (IOException ex) {
-            Logger.getLogger(userframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
         if(jRadioButton1.isSelected()){
             try {
                 depos();
@@ -398,7 +418,11 @@ if((jRadioButton2.isSelected())||jRadioButton1.isSelected()){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new userframe().setVisible(true);
+                try {
+                    new userframe().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(userframe.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -407,6 +431,7 @@ if((jRadioButton2.isSelected())||jRadioButton1.isSelected()){
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
