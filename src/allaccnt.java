@@ -30,6 +30,9 @@ public class allaccnt extends javax.swing.JFrame {
     DefaultTableModel model = new DefaultTableModel();
     public allaccnt() {
         initComponents();
+        jTextField1.setEnabled(false);
+        jTextField2.setEnabled(false);
+        jTextField3.setEnabled(false);
    initDatabase();
         try {
             initloader();
@@ -47,7 +50,7 @@ public final void initDatabase() {
 }
 public void initloader() throws SQLException {
 DefaultTableModel modela = (DefaultTableModel) jTable1.getModel();
-String username=null;
+modela.setRowCount(0);
 try{
     Statement stmt=con.createStatement();
     ResultSet rs = stmt.executeQuery("Select * from bank_db;");
@@ -62,7 +65,7 @@ try{
         String didd = rs.getString("didd");
         modela.addRow(new Object[] { no, dname, dadrs, dphno, dpass, dage, dsex, didd });
     }
-    rs.close();stmt.close();con.close();
+    rs.close();stmt.close();
 }
 catch(SQLException e){
     System.out.println(e);      
@@ -79,9 +82,18 @@ catch(SQLException e){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jTextField2 = new javax.swing.JTextField();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jTextField3 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,26 +122,96 @@ catch(SQLException e){
             }
         });
 
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Name");
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton1MouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Phone Number");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton2MouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Id");
+        jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton3MouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Show All");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(129, 129, 129)
+                                .addComponent(jButton3)
+                                .addGap(89, 89, 89)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButton1)
+                                    .addComponent(jRadioButton2)
+                                    .addComponent(jRadioButton3))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jTextField3))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(262, 262, 262)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -139,6 +221,107 @@ catch(SQLException e){
 dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+    if(jRadioButton1.isSelected()){
+    jTextField1.setEnabled(true);
+    jTextField2.setEnabled(false);
+    jTextField3.setEnabled(false);
+    }//GEN-LAST:event_jRadioButton1MouseClicked
+    }
+    private void jRadioButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MouseClicked
+    if(jRadioButton2.isSelected()){
+    jTextField2.setEnabled(true);
+    jTextField1.setEnabled(false);
+    jTextField3.setEnabled(false);
+    }
+    }//GEN-LAST:event_jRadioButton2MouseClicked
+
+    private void jRadioButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton3MouseClicked
+    if(jRadioButton3.isSelected()){
+    jTextField3.setEnabled(true);
+    jTextField2.setEnabled(false);
+    jTextField1.setEnabled(false);
+    }
+    }//GEN-LAST:event_jRadioButton3MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+DefaultTableModel modela = (DefaultTableModel) jTable1.getModel();
+modela.setRowCount(0);
+if(jRadioButton1.isSelected()){
+try{
+    Statement stmt=con.createStatement();
+    ResultSet rs = stmt.executeQuery("Select * from bank_db where dname='"+jTextField1.getText()+"';");
+    while(rs.next()){
+        String no = rs.getString("no");
+        String dname = rs.getString("dname");
+        String dadrs = rs.getString("dadrs");
+        String dphno = rs.getString("dphno");
+        String dpass = rs.getString("dpass");
+        String dage = rs.getString("dage");
+        String dsex = rs.getString("dsex");
+        String didd = rs.getString("didd");
+        modela.addRow(new Object[] { no, dname, dadrs, dphno, dpass, dage, dsex, didd });
+    }
+    rs.close();stmt.close();
+}
+catch(SQLException e){
+    System.out.println(e);                
+    }
+   }
+
+else if (jRadioButton2.isSelected()){    
+  try{
+    Statement stmt=con.createStatement();
+    ResultSet rs = stmt.executeQuery("Select * from bank_db where dphno='"+jTextField2.getText()+"';");
+    while(rs.next()){
+        String no = rs.getString("no");
+        String dname = rs.getString("dname");
+        String dadrs = rs.getString("dadrs");
+        String dphno = rs.getString("dphno");
+        String dpass = rs.getString("dpass");
+        String dage = rs.getString("dage");
+        String dsex = rs.getString("dsex");
+        String didd = rs.getString("didd");
+        modela.addRow(new Object[] { no, dname, dadrs, dphno, dpass, dage, dsex, didd });
+    }
+    rs.close();stmt.close();
+}
+catch(SQLException e){
+    System.out.println(e);                
+    }
+        }
+else if(jRadioButton3.isSelected()){
+try{
+    Statement stmt=con.createStatement();
+    ResultSet rs = stmt.executeQuery("Select * from bank_db where didd='"+jTextField3.getText()+"';");
+    while(rs.next()){
+        String no = rs.getString("no");
+        String dname = rs.getString("dname");
+        String dadrs = rs.getString("dadrs");
+        String dphno = rs.getString("dphno");
+        String dpass = rs.getString("dpass");
+        String dage = rs.getString("dage");
+        String dsex = rs.getString("dsex");
+        String didd = rs.getString("didd");
+        modela.addRow(new Object[] { no, dname, dadrs, dphno, dpass, dage, dsex, didd });
+    }
+    rs.close();stmt.close();
+}
+catch(SQLException e){
+    System.out.println(e);                
+    }
+    
+        }        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            initloader();
+        } catch (SQLException ex) {
+            Logger.getLogger(allaccnt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -174,8 +357,17 @@ dispose();        // TODO add your handling code here:
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
