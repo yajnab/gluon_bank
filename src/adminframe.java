@@ -32,6 +32,7 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -43,6 +44,8 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Create New User Account");
@@ -53,6 +56,11 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
         });
 
         jButton2.setText("List Accounts");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Edit Account");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +136,7 @@ public class adminframe extends javax.swing.JFrame implements ActionListener {
                     .addComponent(jButton3))
                 .addGap(26, 26, 26)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jButton6)
                 .addGap(21, 21, 21))
         );
@@ -158,6 +166,10 @@ System.exit(0);        // TODO add your handling code here:
 transadmin tr = new transadmin();
 tr.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +218,7 @@ tr.setVisible(true);// TODO add your handling code here:
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 
     @Override
