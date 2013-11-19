@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -49,9 +50,9 @@ public class chngpass extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Change");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,10 +67,10 @@ public class chngpass extends javax.swing.JFrame {
 
         jLabel3.setText("Retype Password");
 
-        jToggleButton1.setText("Validate");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Validate");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -91,9 +92,9 @@ public class chngpass extends javax.swing.JFrame {
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                             .addComponent(jPasswordField2)
                             .addComponent(jPasswordField3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +103,7 @@ public class chngpass extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jToggleButton1))
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,9 +146,9 @@ try{
  
 		} catch (IOException e) {e.printStackTrace();
 		} 
-    ResultSet rs = stmt.executeQuery("Select dpass from "+username+";");
+    ResultSet rs = stmt.executeQuery("Select dpass from bank_db where didd='"+username+"';");
     while(rs.next()){
-        pass = rs.getString("dpasas");
+        pass = rs.getString("dpass");
     }}
     catch(SQLException e){System.out.println(e);}
 if(pass.equals(password)){
@@ -163,22 +164,48 @@ char[] rw1 = jPasswordField2.getPassword();
 char[] rw2 = jPasswordField3.getPassword();
 String pass1 = new String(rw1);
 String pass2 = new String(rw2);
+String username=null;
+if(pass1.length()<=6){
 if(pass1.equals(pass2)){
-    /*Here goes the update Statement*/
+    try{
+    Statement stmt=con.createStatement();
+     try (BufferedReader br = new BufferedReader(new FileReader("./user.yajnab")))
+		{
+ 
+			String sCurrentLine;
+ 
+			while ((sCurrentLine = br.readLine()) != null) {
+			username=sCurrentLine;	
+                        //System.out.println(sCurrentLine);
+			}
+ 
+		} catch (IOException e) {e.printStackTrace();
+		} 
+    stmt.executeUpdate("Update bank_db set dpass= '"+pass1+"'where didd='"+username+"';");
+    JOptionPane.showMessageDialog(null,"Password Sucessfully Updated");
+    dispose();
+    }
+    catch(SQLException e){System.out.println(e);}
+}
+else {
+    JOptionPane.showMessageDialog(null,"Password mismatch in the two fields");
+}}
+else{
+    JOptionPane.showMessageDialog(null,"Password Should be of minimum 6 characters");
 }
           
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        try {
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+try {
             if(check()){
                 jPasswordField2.setEnabled(true);
                 jPasswordField3.setEnabled(true);
             }
         } catch (SQLException ex) {
             Logger.getLogger(chngpass.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,12 +243,12 @@ if(pass1.equals(pass2)){
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
