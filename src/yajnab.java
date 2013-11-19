@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author yajnavalkya
  */
-public class mainload {
+public class yajnab {
     private static void sleepThread() {
         try
             {
@@ -35,7 +35,7 @@ public class mainload {
                 try {
                     new login().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(mainload.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(yajnab.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
