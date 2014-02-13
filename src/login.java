@@ -188,7 +188,8 @@ public boolean namechk(String a, String b)throws SQLException {
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             }
 	}
-        try {
+        else{    
+          try {
             if(namechk(a,c)==false)
             {   
                 JOptionPane.showMessageDialog(null, "Wrong ID or Password, Please Chek and try again");
@@ -200,7 +201,7 @@ public boolean namechk(String a, String b)throws SQLException {
         }catch(SQLException e){
             System.out.println(e);
         }
-        
+        }
         
     }//GEN-LAST:event_loginbtnActionPerformed
 
